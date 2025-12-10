@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manwah - Bookmarks</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="brand"><a href="index.html">MANWAH</a></div>
+    <nav class="menu">
+        <a href="index.html">Home</a>
+        <a href="bookmark.html" class="active">Bookmarks</a>
+    </nav>
+</header>
+
+<main class="container">
+    <section>
+        <h2>BOOKMARKS</h2>
+        <div id="bookmarkList" class="series-list"></div>
+    </section>
+</main>
+
+<footer class="site-footer">&copy; <span id="year"></span> Manwah - Demo</footer>
+
+<script src="assets/js/main.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Load bookmarks
+const bookmarkList = document.getElementById('bookmarkList');
+const bookmarks = DB.get('bookmarks', []);
+
+// Access MANWAH series list
+const allSeries = window.MANWAH.series;
+
+if (bookmarks.length === 0) {
+    bookmarkList.innerHTML = "<p>No bookmarks yet</p>";
+} else {
+    bookmarks.forEach(seriesId => {
+        const s = allSeries.find(x => x.id === seriesId);
+        if (!s) return; // Skip if not found
+
+        // Build a real series card (same style as home page)
+        const card = document.createElement('div');
+        card.className = "series-card";
+        card.innerHTML = `
+            <img src="${s.cover}" alt="${s.title}">
+            <strong>${s.title}</strong>
+        `;
+        
+        card.onclick = () => {
+            location.href = "series.html#" + s.id;
+        };
+
+        bookmarkList.appendChild(card);
+    });
+}
+</script>
+
+</body>
+</html>
