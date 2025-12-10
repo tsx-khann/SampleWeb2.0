@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Manwah - Reader</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand"><a href="index.html">MANWAH</a></div>
+
+    <div class="search-wrap">
+      <input 
+        id="searchInput"
+        placeholder="Search manwah title..."
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+      >
+    </div>
+
+    <nav class="menu">
+      <button id="menuBtn" class="hamburger">☰</button>
+      <div id="menuPanel" class="menu-panel hidden">
+        <a href="#" id="catLink">Categories</a>
+        <a href="#" id="bookmarkLink">Bookmarks</a>
+      </div>
+    </nav>
+
+    <button id="headerToggleBtn" class="header-toggle-btn">
+      <img id="headerToggleIcon" src="assets/images/icon/up.png" alt="Toggle Header">
+    </button>
+  </header>
+
+  <div class="reader-ui" id="readerUI">
+    <div id="readerContentWrapper">
+      <div class="reader-header">
+        <h1 id="readerSeriesTitle"></h1>
+        <h2 id="readerChapterTitle"></h2>
+      </div>
+
+      <div class="reader-nav" id="readerNavTop"></div>
+
+      <div class="reader-content" id="readerContent"></div>
+
+      <div class="reader-nav" id="readerNavBottom"></div>
+
+    </div>
+
+    <section class="reader-comments">
+      <h3>Comments</h3>
+      <div id="readerComments"></div>
+      <textarea id="readerCommentInput" placeholder="Add comment..."></textarea>
+      <button id="addReaderComment" class="btn">Add comment</button>
+    </section>
+  </div>
+
+  <footer class="site-footer">&copy; <span id="year3"></span> Manwah - Demo</footer>
+
+  <script src="assets/js/main.js"></script>
+  <script>
+    document.getElementById('year3').textContent = new Date().getFullYear();
+
+    // ===================== READER =====================
+// ===================== READER =====================
+window.loadReaderFromHash = function() {
+  const raw = location.hash.replace('#','');
+  const [sid, cid] = raw.split('|');
+  const s = window.MANWAH.findSeries(sid) || window.MANWAH.series[0];
+  const ch = (s && s.chapters.find(x => x.id === cid)) || s.chapters[0];
+
+  const readerContent = document.getElementById('readerContent');
+  if(!readerContent) return;
+  readerContent.innerHTML = '';
+
+  // Append Series & Chapter Titles dynamically (first!)
+  const titleDiv = document.createElement('div');
+  titleDiv.className = 'reader-header';
+  const seriesTitle = document.createElement('h1');
+  seriesTitle.textContent = s.title;
+  const chapterTitle = document.createElement('h2');
+  chapterTitle.textContent = ch.title;
+  titleDiv.appendChild(seriesTitle);
+  titleDiv.appendChild(chapterTitle);
+  readerContent.appendChild(titleDiv);
+
+  // Function to create navigation buttons
+  function createNavButtons() {
+    const nav = document.createElement('div');
+    nav.className = 'reader-nav';
+
+    const chapterIndex = s.chapters.indexOf(ch);
+
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'btn';
+    prevBtn.textContent = '← Previous';
+    prevBtn.disabled = chapterIndex === 0;
+    prevBtn.onclick = () => {
+      if(chapterIndex > 0) location.hash = `${s.id}|${s.chapters[chapterIndex - 1].id}`;
+    };
+
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'btn';
+    nextBtn.textContent = 'Next →';
+    nextBtn.disabled = chapterIndex === s.chapters.length - 1;
+    nextBtn.onclick = () => {
+      if(chapterIndex < s.chapters.length - 1) location.hash = `${s.id}|${s.chapters[chapterIndex + 1].id}`;
+    };
+
+    nav.appendChild(prevBtn);
+    nav.appendChild(nextBtn);
+    return nav;
+  }
+
+  // Append Top Buttons (below titles)
+  readerContent.appendChild(createNavButtons());
+
+  // Append Chapter Images
+  (ch.images || []).forEach(src => {
+    const img = document.createElement('img');
+    img.src = src;
+    readerContent.appendChild(img);
+  });
+
+  // Append Bottom Buttons
+  readerContent.appendChild(createNavButtons());
+};
+
+window.addEventListener('hashchange', loadReaderFromHash);
+window.addEventListener('load', loadReaderFromHash);
+
+</script>
+</body>
+</html>
