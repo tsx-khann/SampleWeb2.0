@@ -1,0 +1,519 @@
+:root {
+  --accent: #ffffff;
+  --accent-dark: #1111;
+  --muted: #aaa;           
+  --bg: #2e2e2e;           
+  --header-bg: #111;       
+  --card-bg: #3a3a3a;     
+  --card-hover: #444;    
+  --card-text: #eee;      
+  --shadow-light: rgba(0,0,0,0.3);
+  --shadow-medium: rgba(0,0,0,0.5);
+  --radius: 20px;
+  --transition: 0.3s;
+}
+a {
+  color: rgb(255, 1, 221);       
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+a:hover {
+  color: var(--accent); 
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: #fff;
+  line-height: 1.6;
+}
+
+/* ===============================
+HEADER
+=============================== */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px 24px;
+  background: var(--header-bg);
+  border-bottom: 2px solid #111;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px var(--shadow-medium);
+  transition: var(--transition);
+}
+
+.site-header.small {
+  padding: 10px 16px;
+}
+
+.brand a {
+  font-weight: 800;
+  font-size: 30px;
+  color: white;
+  text-decoration: none;
+  background: none;
+  border: none;
+}
+
+.brand a:hover {
+  background: none;
+  color: rgb(255, 1, 221);
+  border: none;
+  text-shadow:
+    0 0 8px black,
+    0 0 15px black,
+    0 0 20px black;
+}
+
+/* Header toggle button */
+.header-toggle-btn {
+  position: absolute;
+  bottom: -10px; 
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 38px;
+  border:#111 solid 0px;
+  border-radius: 0%;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.header-toggle-btn img {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+  position: relative;
+  bottom: 3px; 
+}
+
+
+.site-header.hidden-header {
+  transform: translateY(-100%);
+  transition: transform 0.3s;
+}
+
+/* ===============================
+SEARCH BAR
+=============================== */
+.search-wrap {
+  flex: 1;
+  display: flex;
+  gap: 8px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.search-wrap input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #555;
+  border-radius: var(--radius);
+  outline: none;
+  background: #333;
+  color: #fff;
+  transition: var(--transition);
+}
+
+.search-wrap input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 6px var(--accent-dark);
+}
+
+.search-wrap button {
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  border: 1px solid #555;
+  background: #555;
+  color: #fff;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.search-wrap button:hover {
+  background: var(--accent-dark);
+  transform: translateY(-2px);
+}
+
+/* =============================== MENU =============================== */
+.menu {
+  position: relative;
+}
+
+.hamburger {
+  font-weight: 800;
+  font-size: 30px;
+  color: white;
+  text-decoration: none;
+  background: none;
+  border: none;
+}
+.hamburger:hover {
+  background: none;
+  color: rgb(255, 1, 221);
+  border: none;
+  text-shadow:
+    0 0 8px black,
+    0 0 15px black,
+    0 0 20px black;
+}
+.menu-panel {
+  position: fixed;
+  right:0px;
+  top: 80px;
+  background: #111; 
+  border: 1px solid #111;     
+  padding: 20px;
+  border-radius: 20px;
+  min-width: 350px;
+  min-height: 800px;
+  z-index: 999;
+}
+
+.menu-panel a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: white;  
+  border-radius: var(--radius);
+  transition: var(--transition);
+}
+
+.menu-panel a:hover {
+  background: var(--card-hover);
+  color: rgb(255, 1, 221);    
+}
+
+.hidden {
+  display: none;
+}
+
+/* =============================== CONTAINER =============================== */
+.container {
+  padding: 24px;
+  display: grid;
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* =============================== SERIES LIST CARDS =============================== */
+.series-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.series-card {
+  width: 140px;
+  border: 1px solid #555;       
+  padding: 8px;
+  border-radius: var(--radius);
+  text-align: center;
+  background: var(--card-bg);   
+  box-shadow: 0 4px 12px var(--shadow-light);
+  cursor: pointer;
+  transition: var(--transition);
+  color: rgb(255, 255, 255);    
+}
+
+.series-card:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 20px var(--shadow-medium);
+  background: #111; 
+  border-color: rgb(255, 1, 221); 
+  box-shadow: 0 0 20px rgb(255, 1, 221);
+}
+
+.series-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+/* =============================== SERIES DETAILS =============================== */
+.series-detail {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 20px;
+  background: var(--card-bg);    
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px var(--shadow-light);
+  color: var(--card-text);     
+}
+
+.cover-small {
+  width: 160px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.series-meta {
+  max-width: 640px;
+  color: var(--card-text);     
+}
+
+.series-detail {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 20px;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px var(--shadow-light);
+  color: var(--card-text);
+}
+
+.cover-small {
+  width: 160px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.series-meta {
+  max-width: 640px;
+  color: var(--card-text);
+}
+
+/* ===============================
+CHAPTER LIST
+=============================== */
+.chapter-list li {
+  padding: 10px 12px;
+  border-bottom: 1px solid #555;
+  cursor: pointer;
+  transition: var(--transition);
+  color: var(--card-text);
+}
+
+.chapter-list li:hover {
+  background: var(--card-hover);
+}
+
+/* ===============================
+COMMENTS
+=============================== */
+.comment {
+  padding: 10px 12px;
+  border: 1px solid #555;
+  margin-bottom: 12px;
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  box-shadow: 0 2px 8px var(--shadow-light);
+  color: var(--card-text);
+}
+
+/* ===============================
+       Reader UI & Buttons
+    ================================ */
+    .reader-ui {
+      padding: 20px;
+      max-width: 900px;
+      margin: 20px auto;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 6px 16px var(--shadow-light);
+      color: var(--card-text);
+    }
+
+    .reader-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+      display: block;
+      margin: 10px auto;
+    }
+
+    .reader-header {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .reader-nav {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin: 16px 0;
+      padding: 0 10px;
+      box-sizing: border-box;
+    }
+
+    .reader-nav .btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: var(--radius);
+      border: none;
+      background: #111, #111;
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 6px 16px var(--shadow-medium);
+      font-size: 16px;
+
+ 
+  margin: 16px 0;  
+    }
+
+    .reader-nav .btn:first-child {
+      margin-right: 10px;
+    }
+
+    .reader-nav .btn:hover {
+      background: #111;
+    border: rgb(255, 1, 221)solid 1px;
+    color:rgb(255, 1, 221);
+    box-shadow: 0 0 20px rgb(255, 1, 221);
+    }
+
+
+
+/* COMMENTS IN READER */
+.reader-comments textarea {
+  width: 100%;
+  height: 80px;
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: var(--radius);
+  border: 1px solid #555;
+  background: var(--card-bg);
+  color: #fff;
+  resize: vertical;
+}
+
+/* ===============================
+AUTH PAGES (SIGNIN/SIGNUP)
+=============================== */
+.auth-container {
+  max-width: 420px;
+  margin: 60px auto;
+  padding: 32px 28px;
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  box-shadow: 0 12px 24px var(--shadow-light);
+  color: var(--card-text);
+  transition: transform var(--transition);
+}
+
+.auth-container h2 {
+  margin-bottom: 24px;
+  font-size: 28px;
+  color: var(--accent);
+  text-shadow: 0 0 4px var(--accent-dark);
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 500;
+  color: var(--card-text);
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius);
+  border: 1px solid #555;
+  outline: none;
+  font-size: 16px;
+  background: var(--card-bg);
+  color: #fff;
+}
+
+input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 8px var(--accent-dark);
+}
+
+.btn {
+  flex: 1;
+      padding: 12px;
+      border-radius: var(--radius);
+      border: none;
+      background: #111, #111;
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 6px 16px var(--shadow-medium);
+      font-size: 16px;
+
+ 
+  margin: 16px 0;  
+}
+.btn:hover {
+    background: #111;
+    border: rgb(255, 1, 221)solid 1px;
+    color:rgb(255, 1, 221);
+    box-shadow: 0 0 20px rgb(255, 1, 221);
+    }
+
+/* ===============================
+FOOTER
+=============================== */
+.site-footer {
+  padding: 16px 20px;
+  text-align: center;
+  color: var(--muted);
+  border-top: 1px solid #333;
+}
+
+/* UI Toggle */
+.ui-toggle {
+  margin-bottom: 12px;
+}
+
+.hide-ui .site-header,
+.hide-ui .reader-comments {
+  display: none;
+}
+
+
+/* ===============================
+RESPONSIVE
+=============================== */
+@media (max-width: 700px) {
+  .series-detail {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cover-small {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .search-wrap {
+    flex-direction: column;
+  }
+
+  .search-wrap input,
+  .search-wrap button {
+    width: 100%;
+  }
+
+  .auth-container {
+    margin: 40px 16px;
+    padding: 24px 20px;
+  }
+}
